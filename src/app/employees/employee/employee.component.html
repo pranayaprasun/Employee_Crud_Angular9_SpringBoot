@@ -1,0 +1,42 @@
+<mat-toolbar>
+    <span>{{ service.form.controls['id'].value?"Modify Employee":"Add Employee"}}</span>
+    <span class="fill-remaining-space"></span>
+    <button class="close" (click)='onClose()'>
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-toolbar>
+
+<form [formGroup]="service.form" class="normal-form" (submit)='onSubmit()'>
+    <mat-grid-list cols="1" rowHeight="300px">
+        <mat-grid-tile>
+            <div class="controles-container">
+                <input type="hidden" formControlName="id">
+                <mat-form-field>
+                    <input formControlName="firstName" matInput type="text" placeholder="First name" required>
+                    <mat-error *ngIf="service.form.controls['firstName'].errors?.required">Name Field Is Mandatory.
+                    </mat-error>
+                    <mat-error *ngIf="service.form.controls['firstName'].errors?.minlength">Minimum 3 Charachters
+                        needed.</mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input formControlName="lastName" matInput type="text" placeholder="Last name" required>
+                    <mat-error *ngIf="service.form.controls['lastName'].errors?.required">Name Field Is Mandatory.
+                    </mat-error>
+                    <mat-error *ngIf="service.form.controls['lastName'].errors?.minlength">Minimum 3 Charachters needed.
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input formControlName="emailId" matInput type="email" placeholder="Email-Id" required>
+                    <mat-error *ngIf="service.form.controls['emailId'].errors?.required">Name Field Is Mandatory.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <div class="button-row">
+        <button mat-raised-button color="warn" (click)='onClear()'>Clear</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="service.form.invalid">Submit</button>
+    </div>
+</form>
